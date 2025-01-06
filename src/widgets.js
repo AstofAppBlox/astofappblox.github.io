@@ -1500,7 +1500,7 @@ DialogBoxMorph.prototype.fontStyle = 'sans-serif';
 DialogBoxMorph.prototype.color = PushButtonMorph.prototype.color;
 DialogBoxMorph.prototype.titleTextColor = WHITE;
 DialogBoxMorph.prototype.titleBarColor
-    = PushButtonMorph.prototype.pressColor;
+    = PushButtonMorph.prototype.color;
 
 DialogBoxMorph.prototype.contrast = 0;
 
@@ -2625,7 +2625,7 @@ DialogBoxMorph.prototype.normalizeSpaces = function (string) {
 // DialogBoxMorph submorph construction
 
 DialogBoxMorph.prototype.createLabel = function () {
-    var shading = !MorphicPreferences.isFlat || this.is3D;
+    var shading = false;
 
     if (this.label) {
         this.label.destroy();
@@ -2824,20 +2824,7 @@ DialogBoxMorph.prototype.render = function (ctx) {
     // this.alpha = isFlat ? 0.9 : 1;
 
     // title bar
-    if (isFlat) {
-        ctx.fillStyle = this.titleBarColor.toString();
-    } else {
-        gradient = ctx.createLinearGradient(0, 0, 0, th);
-        gradient.addColorStop(
-            0,
-            this.titleBarColor.lighter(this.contrast / 2).toString()
-        );
-        gradient.addColorStop(
-            1,
-            this.titleBarColor.darker(this.contrast).toString()
-        );
-        ctx.fillStyle = gradient;
-    }
+    ctx.fillStyle = this.titleBarColor.toString();
     ctx.beginPath();
     this.outlinePathTitle(
         ctx,
@@ -2860,136 +2847,8 @@ DialogBoxMorph.prototype.render = function (ctx) {
     if (isFlat) {
         return;
     }
+    PushButtonMorph.prototype.drawOutline.call(this,ctx)
 
-    // 3D-effect
-    // bottom left corner
-    gradient = ctx.createLinearGradient(
-        0,
-        h - this.corner,
-        0,
-        h
-    );
-    gradient.addColorStop(0, this.color.toString());
-    gradient.addColorStop(1, this.color.darker(this.contrast.toString()));
-
-    ctx.lineWidth = this.corner;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = gradient;
-
-    ctx.beginPath();
-    ctx.moveTo(this.corner, h - shift);
-    ctx.lineTo(this.corner + 1, h - shift);
-    ctx.stroke();
-
-    // bottom edge
-    gradient = ctx.createLinearGradient(
-        0,
-        h - this.corner,
-        0,
-        h
-    );
-    gradient.addColorStop(0, this.color.toString());
-    gradient.addColorStop(1, this.color.darker(this.contrast.toString()));
-
-    ctx.lineWidth = this.corner;
-    ctx.lineCap = 'butt';
-    ctx.strokeStyle = gradient;
-
-    ctx.beginPath();
-    ctx.moveTo(this.corner, h - shift);
-    ctx.lineTo(w - this.corner, h - shift);
-    ctx.stroke();
-
-    // right body edge
-    gradient = ctx.createLinearGradient(
-        w - this.corner,
-        0,
-        w,
-        0
-    );
-    gradient.addColorStop(0, this.color.toString());
-    gradient.addColorStop(1, this.color.darker(this.contrast).toString());
-
-    ctx.lineWidth = this.corner;
-    ctx.lineCap = 'butt';
-    ctx.strokeStyle = gradient;
-
-    ctx.beginPath();
-    ctx.moveTo(w - shift, th);
-    ctx.lineTo(w - shift, h - this.corner);
-    ctx.stroke();
-
-    // bottom right corner
-    x = w - this.corner;
-    y = h - this.corner;
-
-    gradient = ctx.createRadialGradient(
-        x,
-        y,
-        0,
-        x,
-        y,
-        this.corner
-    );
-    gradient.addColorStop(0, this.color.toString());
-    gradient.addColorStop(1, this.color.darker(this.contrast.toString()));
-
-    ctx.lineCap = 'butt';
-
-    ctx.strokeStyle = gradient;
-
-    ctx.beginPath();
-    ctx.arc(
-        x,
-        y,
-        shift,
-        radians(90),
-        radians(0),
-        true
-    );
-    ctx.stroke();
-
-    // left body edge
-    gradient = ctx.createLinearGradient(
-        0,
-        0,
-        this.corner,
-        0
-    );
-    gradient.addColorStop(
-        0,
-        this.color.lighter(this.contrast).toString()
-    );
-    gradient.addColorStop(1, this.color.toString());
-
-    ctx.lineCap = 'butt';
-    ctx.strokeStyle = gradient;
-
-    ctx.beginPath();
-    ctx.moveTo(shift, th);
-    ctx.lineTo(shift, h - this.corner * 2);
-    ctx.stroke();
-
-    // left vertical bottom corner
-    gradient = ctx.createLinearGradient(
-        0,
-        0,
-        this.corner,
-        0
-    );
-    gradient.addColorStop(
-        0,
-        this.color.lighter(this.contrast).toString()
-    );
-    gradient.addColorStop(1, this.color.toString());
-
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = gradient;
-
-    ctx.beginPath();
-    ctx.moveTo(shift, h - this.corner * 2);
-    ctx.lineTo(shift, h - this.corner - shift);
-    ctx.stroke();
 };
 
 DialogBoxMorph.prototype.outlinePathTitle = function (ctx, radius) {
