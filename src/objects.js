@@ -15250,6 +15250,8 @@ WatcherMorph.prototype.render = function (ctx) {
         BoxMorph.uber.render.call(this, ctx);
         return;
     }
+    this.labelMorph.color = this.cellMorph.color
+    this.labelMorph.alpha = 1
     gradient = ctx.createLinearGradient(0, 0, 0, this.height());
     ctx.fillStyle = "rgba(20,20,25,1)"
     ctx.beginPath();
