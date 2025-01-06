@@ -1516,7 +1516,7 @@ DialogBoxMorph.prototype.buttonPadding = 0;
 DialogBoxMorph.prototype.buttonOutline = 1;
 DialogBoxMorph.prototype.buttonOutlineColor
     = PushButtonMorph.prototype.color;
-DialogBoxMorph.prototype.buttonOutlineGradient = true;
+DialogBoxMorph.prototype.buttonOutlineGradient = false;
 DialogBoxMorph.prototype.outline = 1;
 
 DialogBoxMorph.prototype.instances = {}; // prevent multiple instances
@@ -2667,7 +2667,7 @@ DialogBoxMorph.prototype.addButton = function (action, label) {
     button.edge = this.buttonEdge;
     button.outline = this.buttonOutline;
     button.outlineColor = this.buttonOutlineColor;
-    button.outlineGradient = this.buttonOutlineColor;
+    button.outlineGradient = this.buttonOutlineGradient;
     button.padding = this.buttonPadding;
     button.contrast = this.buttonContrast;
     button.fixLayout();
