@@ -1440,6 +1440,7 @@ ListWatcherMorph.prototype.init = function (list, parentCell) {
         false,
         false,
         MorphicPreferences.isFlat ? ZERO : new Point(1, 1),
+        CLEAR,
         WHITE
     );
     this.label.mouseClickLeft = function () {myself.startIndexMenu(); };
@@ -1487,10 +1488,10 @@ ListWatcherMorph.prototype.init = function (list, parentCell) {
         this,
         SyntaxElementMorph.prototype.rounding,
         1,
-        new Color(120, 120, 120)
+        WHITE
     );
 
-    this.color = new Color(220, 220, 220);
+    this.color = new Color(20, 20, 25);
     this.isDraggable = false;
     this.setExtent(new Point(80, 70).multiplyBy(
         SyntaxElementMorph.prototype.scale
@@ -1652,9 +1653,9 @@ ListWatcherMorph.prototype.update = function (anyway) {
 ListWatcherMorph.prototype.updateLength = function (notDone) {
     this.label.text = localize('length: ') + this.list.length();
     if (notDone) {
-        this.label.color = new Color(0, 0, 100);
+        this.label.color = new Color(0, 0, 255);
     } else {
-        this.label.color = new Color(0, 0, 0);
+        this.label.color = WHITE;
     }
     this.label.fixLayout();
     this.label.setCenter(this.center());

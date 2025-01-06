@@ -15252,7 +15252,7 @@ WatcherMorph.prototype.render = function (ctx) {
     }
     this.labelMorph.color = this.cellMorph.color
     this.labelMorph.alpha = 1
-    gradient = ctx.createLinearGradient(0, 0, 0, this.height());
+    this.color = this.cellMorph.color
     ctx.fillStyle = "rgba(20,20,25,1)"
     ctx.beginPath();
     this.outlinePath(
