@@ -14732,7 +14732,7 @@ WatcherMorph.prototype.fixLayout = function () {
             false,
             MorphicPreferences.isFlat ? new Point() : new Point(1, 1),
             CLEAR,
-            this.cellMorph.color
+            this.cellMorph||{color:WHITE}.color
         );
         this.add(this.labelMorph);
     }
