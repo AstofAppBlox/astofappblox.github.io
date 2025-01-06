@@ -14391,7 +14391,7 @@ CellMorph.prototype.render = function (ctx) {
         BoxMorph.uber.render.call(this, ctx);
         return null;
     }
-    ctx.fillStyle = this.color.toString();
+    ctx.strokeStyle = this.color.toString();
     ctx.beginPath();
     this.outlinePath(
         ctx,
@@ -14399,8 +14399,8 @@ CellMorph.prototype.render = function (ctx) {
         this.border
     );
     ctx.closePath();
-    ctx.fill();
-    if (this.border > 0 && !MorphicPreferences.isFlat) {
+    ctx.stroke();
+    /*if (this.border > 0 && !MorphicPreferences.isFlat) {
         ctx.lineWidth = this.border;
         ctx.strokeStyle = this.borderColor.toString();
         ctx.beginPath();
@@ -14415,7 +14415,7 @@ CellMorph.prototype.render = function (ctx) {
             ctx.shadowColor = this.color.darker(80).toString();
             this.drawShadow(ctx, this.edge, 0);
         }
-    }
+    }*/
 };
 
 CellMorph.prototype.drawShadow = function (context, radius, inset) {
@@ -15250,9 +15250,7 @@ WatcherMorph.prototype.render = function (ctx) {
         return;
     }
     gradient = ctx.createLinearGradient(0, 0, 0, this.height());
-    gradient.addColorStop(0, this.color.lighter().toString());
-    gradient.addColorStop(1, this.color.darker().toString());
-    ctx.fillStyle = gradient;
+    ctx.fillStyle = "rgba(20,20,25,1)"
     ctx.beginPath();
     this.outlinePath(
         ctx,
@@ -15261,17 +15259,17 @@ WatcherMorph.prototype.render = function (ctx) {
     );
     ctx.closePath();
     ctx.fill();
-    if (this.border > 0) {
+    //if (this.border > 0) {
         gradient = ctx.createLinearGradient(0, 0, 0, this.height());
-        gradient.addColorStop(0, this.borderColor.lighter().toString());
-        gradient.addColorStop(1, this.borderColor.darker().toString());
+        gradient.addColorStop(0, this.color);
+        gradient.addColorStop(1, this.color);
         ctx.lineWidth = this.border;
         ctx.strokeStyle = gradient;
         ctx.beginPath();
-        this.outlinePath(ctx, this.edge, this.border / 2);
+        this.outlinePath(ctx, this.edge, 1);
         ctx.closePath();
         ctx.stroke();
-    }
+    //}
 };
 
 // StagePrompterMorph ////////////////////////////////////////////////////////
