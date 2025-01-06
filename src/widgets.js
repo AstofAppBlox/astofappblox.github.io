@@ -1518,6 +1518,7 @@ DialogBoxMorph.prototype.buttonOutlineColor
     = PushButtonMorph.prototype.color;
 DialogBoxMorph.prototype.buttonOutlineGradient = false;
 DialogBoxMorph.prototype.outline = 1;
+DialogBoxMorph.prototype.outlineColor = WHITE;
 
 DialogBoxMorph.prototype.instances = {}; // prevent multiple instances
 
