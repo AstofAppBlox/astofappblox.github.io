@@ -306,7 +306,7 @@ PushButtonMorph.prototype.drawEdges = function (
     topColor,
     bottomColor
 ) {
-    if (MorphicPreferences.isFlat && !this.is3D) {return; }
+    if (MorphicPreferences.isFlat) {return; }
     var minInset = Math.max(this.corner, this.outline + this.edge),
         w = this.width(),
         h = this.height(),
