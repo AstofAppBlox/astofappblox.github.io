@@ -14344,16 +14344,10 @@ CellMorph.prototype.createContents = function () {
         } else if (this.contents instanceof Array) {
             this.contentsMorph = new ListWatcherMorph(new List(this.contents));
             this.contentsMorph.update(true);
-            this.contentsMorph.step = this.contents.update;
-            this.contentsMorph.isDraggable = false;
-            this.contentsMorph.expand(this.parentThatIsA(ScrollFrameMorph).extent());
             isClickable = true; 
         } else if (this.contents instanceof Map) {
             this.contentsMorph = new ListWatcherMorph(new List(this.contents.entries().map((v) => new List(v))));
             this.contentsMorph.update(true);
-            this.contentsMorph.step = this.contents.update;
-            this.contentsMorph.isDraggable = false;
-            this.contentsMorph.expand(this.parentThatIsA(ScrollFrameMorph).extent());
             isClickable = true;
          } else {
             this.contentsMorph = new TextMorph(
