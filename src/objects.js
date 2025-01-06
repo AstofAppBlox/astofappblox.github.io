@@ -15079,7 +15079,7 @@ WatcherMorph.prototype.userMenu = function () {
         }
     }
     return menu;
-};
+}}};
 
 WatcherMorph.prototype.importData = function (raw) {
     // raw is a Boolean flag selecting to keep the data unparsed
