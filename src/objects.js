@@ -14731,7 +14731,8 @@ WatcherMorph.prototype.fixLayout = function () {
             false,
             false,
             MorphicPreferences.isFlat ? new Point() : new Point(1, 1),
-            WHITE
+            CLEAR,
+            this.cellMorph.color
         );
         this.add(this.labelMorph);
     }
@@ -15254,7 +15255,7 @@ WatcherMorph.prototype.render = function (ctx) {
     ctx.beginPath();
     this.outlinePath(
         ctx,
-        Math.max(this.edge - this.border, 0),
+        Math.max(4 - this.border, 0),
         this.border
     );
     ctx.closePath();
@@ -15266,7 +15267,7 @@ WatcherMorph.prototype.render = function (ctx) {
         ctx.lineWidth = this.border;
         ctx.strokeStyle = gradient;
         ctx.beginPath();
-        this.outlinePath(ctx, this.edge, 1);
+        this.outlinePath(ctx, 4, 1);
         ctx.closePath();
         ctx.stroke();
     //}
