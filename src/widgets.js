@@ -545,6 +545,7 @@ function ToggleButtonMorph(
         isPicture
     );
 }
+ToggleButtonMorph.prototype.edge= 1
 
 ToggleButtonMorph.prototype.init = function (
     colors,
