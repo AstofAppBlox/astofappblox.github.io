@@ -2849,7 +2849,6 @@ DialogBoxMorph.prototype.render = function (ctx) {
 
     var outlineStyle
 
-    if (!this.outline) {return null; }
     outlineStyle = WHITE.toString();
     ctx.strokeStyle = outlineStyle;
     ctx.beginPath();
@@ -2862,6 +2861,8 @@ DialogBoxMorph.prototype.render = function (ctx) {
     ctx.stroke();
 
 };
+
+DialogBoxMorph.prototype.outlinePath = BoxMorph.prototype.outlinePath
 
 DialogBoxMorph.prototype.outlinePathTitle = function (ctx, radius) {
     var w = this.width(),
