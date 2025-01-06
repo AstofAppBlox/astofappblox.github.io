@@ -2822,7 +2822,8 @@ DialogBoxMorph.prototype.render = function (ctx) {
         x,
         y,
         isFlat = MorphicPreferences.isFlat && !this.is3D;
-
+        ctx.lineCap = 'round';
+        ctx.lineWidth = this.edge;
     // this.alpha = isFlat ? 0.9 : 1;
 
     // title bar
@@ -2854,7 +2855,7 @@ DialogBoxMorph.prototype.render = function (ctx) {
     ctx.beginPath();
     this.outlinePath(
         ctx,
-        isFlat ? 0 : this.corner,
+        this.corner,
         0
     );
     ctx.closePath();
