@@ -2846,10 +2846,30 @@ DialogBoxMorph.prototype.render = function (ctx) {
     ctx.closePath();
     ctx.fill();
 
-    if (isFlat) {
-        return;
+    var outlineStyle
+
+    if (!this.outline) {return null; }
+    if (this.outlineGradient) {
+        outlineStyle = ctx.createLinearGradient(
+            0,
+            0,
+            0,
+            this.height()
+        );
+        outlineStyle.addColorStop(0, this.outlineColor.darker().toString());
+        outlineStyle.addColorStop(1, 'white');
+    } else {
+        outlineStyle = this.outlineColor.toString();
     }
-    PushButtonMorph.prototype.drawOutline.call(this,ctx)
+    ctx.fillStyle = outlineStyle;
+    ctx.beginPath();
+    this.outlinePath(
+        ctx,
+        isFlat ? 0 : this.corner,
+        0
+    );
+    ctx.closePath();
+    ctx.fill();
 
 };
 
