@@ -286,13 +286,13 @@ PushButtonMorph.prototype.drawOutline = function (ctx) {
 };
 
 PushButtonMorph.prototype.drawBackground = function (ctx, color) {
-    var isFlat = MorphicPreferences.isFlat && !this.is3D;
+    var isFlat = MorphicPreferences.isFlat;
 
     ctx.fillStyle = color.toString();
     ctx.beginPath();
     this.outlinePath(
         ctx,
-        isFlat ? 0 : Math.max(this.corner - this.outline, 0),
+        0,
         this.outline
     );
     ctx.closePath();
