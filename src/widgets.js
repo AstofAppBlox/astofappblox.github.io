@@ -1502,18 +1502,18 @@ DialogBoxMorph.prototype.titleTextColor = WHITE;
 DialogBoxMorph.prototype.titleBarColor
     = PushButtonMorph.prototype.pressColor;
 
-DialogBoxMorph.prototype.contrast = 40;
+DialogBoxMorph.prototype.contrast = 0;
 
-DialogBoxMorph.prototype.corner = 12;
+DialogBoxMorph.prototype.corner = 4;
 DialogBoxMorph.prototype.padding = 14;
-DialogBoxMorph.prototype.titlePadding = 6;
+DialogBoxMorph.prototype.titlePadding = 2;
 
-DialogBoxMorph.prototype.buttonContrast = 50;
+DialogBoxMorph.prototype.buttonContrast = 0;
 DialogBoxMorph.prototype.buttonFontSize = 12;
-DialogBoxMorph.prototype.buttonCorner = 12;
-DialogBoxMorph.prototype.buttonEdge = 6;
+DialogBoxMorph.prototype.buttonCorner = 4;
+DialogBoxMorph.prototype.buttonEdge = 1;
 DialogBoxMorph.prototype.buttonPadding = 0;
-DialogBoxMorph.prototype.buttonOutline = 3;
+DialogBoxMorph.prototype.buttonOutline = 1;
 DialogBoxMorph.prototype.buttonOutlineColor
     = PushButtonMorph.prototype.color;
 DialogBoxMorph.prototype.buttonOutlineGradient = true;
