@@ -123,7 +123,7 @@ PushButtonMorph.prototype.color = new Color(20, 20, 25);
 PushButtonMorph.prototype.pressColor = new Color(30, 30, 35);
 PushButtonMorph.prototype.highlightColor
     = PushButtonMorph.prototype.pressColor.lighter(50);
-PushButtonMorph.prototype.outlineColor = WHITE;
+PushButtonMorph.prototype.outlineColor = CLEAR;
 PushButtonMorph.prototype.outlineGradient = false;
 PushButtonMorph.prototype.contrast = 60;
 
