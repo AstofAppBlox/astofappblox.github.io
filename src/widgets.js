@@ -125,7 +125,7 @@ PushButtonMorph.prototype.highlightColor
     = PushButtonMorph.prototype.pressColor.lighter(50);
 PushButtonMorph.prototype.outlineColor = CLEAR;
 PushButtonMorph.prototype.outlineGradient = false;
-PushButtonMorph.prototype.contrast = 60;
+PushButtonMorph.prototype.contrast = 0;
 
 PushButtonMorph.prototype.edge = 4;
 PushButtonMorph.prototype.corner = 5;
