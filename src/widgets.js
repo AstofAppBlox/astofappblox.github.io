@@ -2823,7 +2823,7 @@ DialogBoxMorph.prototype.render = function (ctx) {
         y,
         isFlat = MorphicPreferences.isFlat && !this.is3D;
         ctx.lineCap = 'round';
-        ctx.lineWidth = this.edge;
+        ctx.lineWidth = this.outline;
     // this.alpha = isFlat ? 0.9 : 1;
 
     // title bar
