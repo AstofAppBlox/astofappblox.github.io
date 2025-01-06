@@ -1517,7 +1517,7 @@ DialogBoxMorph.prototype.buttonOutline = 2;
 DialogBoxMorph.prototype.buttonOutlineColor
     = PushButtonMorph.prototype.color;
 DialogBoxMorph.prototype.buttonOutlineGradient = false;
-DialogBoxMorph.prototype.outline = 2;
+DialogBoxMorph.prototype.outline = 1;
 DialogBoxMorph.prototype.outlineColor = WHITE;
 
 DialogBoxMorph.prototype.instances = {}; // prevent multiple instances
@@ -2832,9 +2832,7 @@ DialogBoxMorph.prototype.render = function (ctx) {
     this.outlinePathTitle(
         ctx,
         isFlat ? 0 : this.corner
-    );
-    ctx.closePath();
-    ctx.fill();
+    );BoxMorph.prototype.outlinePath
 
     // flat shape
     // body
