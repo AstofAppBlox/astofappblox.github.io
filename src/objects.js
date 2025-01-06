@@ -15268,7 +15268,7 @@ WatcherMorph.prototype.render = function (ctx) {
         ctx.lineWidth = this.border;
         ctx.strokeStyle = gradient;
         ctx.beginPath();
-        this.outlinePath(ctx, 4, 1);
+        this.outlinePath(ctx, 4, .5);
         ctx.closePath();
         ctx.stroke();
     //}
