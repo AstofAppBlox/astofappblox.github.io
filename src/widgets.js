@@ -2850,7 +2850,7 @@ DialogBoxMorph.prototype.render = function (ctx) {
     var outlineStyle
 
     if (!this.outline) {return null; }
-    outlineStyle = this.outlineColor.toString();
+    outlineStyle = WHITE.toString();
     ctx.strokeStyle = outlineStyle;
     ctx.beginPath();
     this.outlinePath(
