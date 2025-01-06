@@ -14734,6 +14734,7 @@ WatcherMorph.prototype.fixLayout = function () {
             CLEAR,
             WHITE
         );
+        this.labelMorph.alpha = 0;
         this.add(this.labelMorph);
     }
     if (this.cellMorph === null) {
