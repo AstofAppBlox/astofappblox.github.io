@@ -259,9 +259,9 @@ PushButtonMorph.prototype.render = function (ctx) {
 
 PushButtonMorph.prototype.drawOutline = function (ctx) {
     var outlineStyle,
-        isFlat = MorphicPreferences.isFlat && !this.is3D;
+        isFlat = true;
 
-    if (!this.outline || isFlat) {return null; }
+    if (!this.outline) {return null; }
     if (this.outlineGradient) {
         outlineStyle = ctx.createLinearGradient(
             0,
@@ -1517,6 +1517,7 @@ DialogBoxMorph.prototype.buttonOutline = 1;
 DialogBoxMorph.prototype.buttonOutlineColor
     = PushButtonMorph.prototype.color;
 DialogBoxMorph.prototype.buttonOutlineGradient = true;
+DialogBoxMorph.prototype.outline = 1;
 
 DialogBoxMorph.prototype.instances = {}; // prevent multiple instances
 
