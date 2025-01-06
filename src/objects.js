@@ -14988,8 +14988,7 @@ WatcherMorph.prototype.userMenu = function () {
                     null,
                     new Color(100, 0, 0)
                 );
-            }
-        }
+                this.cellMorph||{color:WHITE}.color
         if (isString(this.currentValue) || !isNaN(+this.currentValue)) {
             if (shiftClicked) {
                 menu.addItem(
