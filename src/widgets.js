@@ -1513,7 +1513,7 @@ DialogBoxMorph.prototype.buttonFontSize = 12;
 DialogBoxMorph.prototype.buttonCorner = 4;
 DialogBoxMorph.prototype.buttonEdge = 1;
 DialogBoxMorph.prototype.buttonPadding = 0;
-DialogBoxMorph.prototype.buttonOutline = 1;
+DialogBoxMorph.prototype.buttonOutline = 2;
 DialogBoxMorph.prototype.buttonOutlineColor
     = PushButtonMorph.prototype.color;
 DialogBoxMorph.prototype.buttonOutlineGradient = false;
