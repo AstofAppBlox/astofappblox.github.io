@@ -115,19 +115,19 @@ PushButtonMorph.uber = TriggerMorph.prototype;
 
 PushButtonMorph.prototype.fontSize = 10;
 PushButtonMorph.prototype.fontStyle = 'sans-serif';
-PushButtonMorph.prototype.labelColor = BLACK;
-PushButtonMorph.prototype.labelShadowColor = WHITE;
+PushButtonMorph.prototype.labelColor = WHITE;
+PushButtonMorph.prototype.labelShadowColor = CLEAR;
 PushButtonMorph.prototype.labelShadowOffset = new Point(1, 1);
 
-PushButtonMorph.prototype.color = new Color(220, 220, 220);
-PushButtonMorph.prototype.pressColor = new Color(115, 180, 240);
+PushButtonMorph.prototype.color = new Color(20, 20, 25);
+PushButtonMorph.prototype.pressColor = new Color(30, 30, 35);
 PushButtonMorph.prototype.highlightColor
     = PushButtonMorph.prototype.pressColor.lighter(50);
-PushButtonMorph.prototype.outlineColor = new Color(30, 30, 30);
+PushButtonMorph.prototype.outlineColor = WHITE;
 PushButtonMorph.prototype.outlineGradient = false;
 PushButtonMorph.prototype.contrast = 60;
 
-PushButtonMorph.prototype.edge = 2;
+PushButtonMorph.prototype.edge = 4;
 PushButtonMorph.prototype.corner = 5;
 PushButtonMorph.prototype.outline = 1;
 PushButtonMorph.prototype.padding = 3;

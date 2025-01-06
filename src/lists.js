@@ -1608,6 +1608,7 @@ ListWatcherMorph.prototype.update = function (anyway) {
                 false,
                 false,
                 MorphicPreferences.isFlat ? ZERO : new Point(1, 1),
+                CLEAR,
                 WHITE
             );
             cell = new CellMorph(
