@@ -14342,11 +14342,11 @@ CellMorph.prototype.createContents = function () {
             }
             this.contentsMorph.isDraggable = false;
         } else if (this.contents instanceof Array) {
-            this.contentsMorph = new ListWatcherMorph(new List(this.contents));
+            this.contentsMorph = new ListWatcherMorph(new List(this.contents),this);
             this.contentsMorph.update(true);
             isClickable = true; 
         } else if (this.contents instanceof Map) {
-            this.contentsMorph = new ListWatcherMorph(new List(this.contents.entries().map((v) => new List(v))));
+            this.contentsMorph = new ListWatcherMorph(new List(this.contents.entries().map((v) => new List(v))),this);
             this.contentsMorph.update(true);
             isClickable = true;
          } else {
