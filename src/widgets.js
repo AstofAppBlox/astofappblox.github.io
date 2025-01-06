@@ -1511,13 +1511,13 @@ DialogBoxMorph.prototype.titlePadding = 2;
 DialogBoxMorph.prototype.buttonContrast = 0;
 DialogBoxMorph.prototype.buttonFontSize = 12;
 DialogBoxMorph.prototype.buttonCorner = 4;
-DialogBoxMorph.prototype.buttonEdge = 1;
+DialogBoxMorph.prototype.buttonEdge = 2;
 DialogBoxMorph.prototype.buttonPadding = 0;
 DialogBoxMorph.prototype.buttonOutline = 2;
 DialogBoxMorph.prototype.buttonOutlineColor
     = PushButtonMorph.prototype.color;
 DialogBoxMorph.prototype.buttonOutlineGradient = false;
-DialogBoxMorph.prototype.outline = 1;
+DialogBoxMorph.prototype.outline = 2;
 DialogBoxMorph.prototype.outlineColor = WHITE;
 
 DialogBoxMorph.prototype.instances = {}; // prevent multiple instances
@@ -2849,19 +2849,8 @@ DialogBoxMorph.prototype.render = function (ctx) {
     var outlineStyle
 
     if (!this.outline) {return null; }
-    if (this.outlineGradient) {
-        outlineStyle = ctx.createLinearGradient(
-            0,
-            0,
-            0,
-            this.height()
-        );
-        outlineStyle.addColorStop(0, this.outlineColor.darker().toString());
-        outlineStyle.addColorStop(1, 'white');
-    } else {
-        outlineStyle = this.outlineColor.toString();
-    }
-    ctx.fillStyle = outlineStyle;
+    outlineStyle = this.outlineColor.toString();
+    ctx.strokeStyle = outlineStyle;
     ctx.beginPath();
     this.outlinePath(
         ctx,
@@ -2869,7 +2858,7 @@ DialogBoxMorph.prototype.render = function (ctx) {
         0
     );
     ctx.closePath();
-    ctx.fill();
+    ctx.stroke();
 
 };
 
