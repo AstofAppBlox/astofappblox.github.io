@@ -147,5 +147,5 @@ AsyncSnapFunction.prototype.Throw = function (error) {
     this.Error = error
 }
 AsyncSnapFunction.prototype.toString = function (indent = 4){
-    return 'function ('+ this.context.inputs +')\n'+ (this.context.expression||{toLisp(){return "[blank]"}}).toLisp(indent)
+    return 'async function ('+ this.context.inputs +')\n'+ (this.context.expression||{toLisp(){return "[blank]"}}).toLisp(indent)
 }
