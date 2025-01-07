@@ -112,14 +112,14 @@ AsyncSnapFunction.prototype.init = function(context){
                 this.canBroadcast = false;
             };
             proc.ThrowError = function(retval){
-                target.Error(retval);
+                resolve(retval)
                 this.readyToYield = true;
                 this.readyToTerminate = true;
                 this.errorFlag = false;
                 this.canBroadcast = false;
             };
             proc.HandleError = function(retval){
-                target.Error(retval);
+                reject(retval)
                 this.readyToYield = true;
                 this.readyToTerminate = true;
                 this.errorFlag = false;
