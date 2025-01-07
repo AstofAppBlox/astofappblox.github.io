@@ -105,14 +105,14 @@ AsyncSnapFunction.prototype.init = function(context){
             proc.receiver = thisArg || stage;
             proc.initializeFor(context, new List(args));
             proc.Return = function(retval){
-                target.Return(retval);
+                resolve(retval)
                 this.readyToYield = true;
                 this.readyToTerminate = true;
                 this.errorFlag = false;
                 this.canBroadcast = false;
             };
             proc.ThrowError = function(retval){
-                resolve(retval)
+                reject(retval)
                 this.readyToYield = true;
                 this.readyToTerminate = true;
                 this.errorFlag = false;
