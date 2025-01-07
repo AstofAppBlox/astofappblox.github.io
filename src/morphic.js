@@ -6213,12 +6213,12 @@ SpeechBubbleMorph.prototype.init = function (
         this,
         edge || 6,
         border || ((border === 0) ? 0 : 1),
-        borderColor || new Color(140, 140, 140)
+        borderColor || WHITE
     );
     this.hasShadow = noShadow !== true;
     this.noDropShadow = true;
     this.fullShadowSource = false;
-    this.color = color || new Color(230, 230, 230);
+    this.color = color || new Color(20,20,25);
     this.fixLayout();
 };
 
