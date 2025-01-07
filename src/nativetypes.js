@@ -32,7 +32,7 @@ SnapFunction.prototype.init = function(context){
             var proc = new Process()
             proc.receiver = obj || stage;
             proc.initializeFor(context, new List(args));
-            proc.context.funct = target;
+            proc.funct = target;
             stage.threads.processes.push(proc);
             proc.This = obj
             proc.runStep();
