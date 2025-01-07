@@ -784,7 +784,7 @@ SyntaxElementMorph.prototype.labelParts = {
     },
     '%typ': {
         type: 'input',
-        tags: 'read-only static',
+        tags: 'read-only',
         menu: 'typesMenu'
     },
     '%mapValue': {

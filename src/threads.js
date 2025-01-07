@@ -4705,6 +4705,9 @@ Process.prototype.getLastMessage = function () {
 
 Process.prototype.reportIsA = function (thing, typeString) {
     var choice = this.inputOption(typeString);
+    if (typeString instanceof Function){
+        return thing instanceof typeString
+    }
     switch (choice) {
     case 'agent':
         return isSnapObject(thing);
