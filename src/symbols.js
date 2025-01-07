@@ -172,7 +172,7 @@ SymbolMorph.prototype.init = function (
     this.shadowOffset = shadowOffset || ZERO;
     this.shadowColor = shadowColor || null;
     SymbolMorph.uber.init.call(this);
-    this.color = color || BLACK;
+    this.color = color || WHITE;
     this.backgroundColor = bg || null;
     this.fixLayout();
     this.rerender();

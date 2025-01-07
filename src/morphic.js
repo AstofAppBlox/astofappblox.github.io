@@ -9336,7 +9336,7 @@ TextMorph.prototype.init = function (
     TextMorph.uber.init.call(this);
 
     // override inherited properites:
-    this.color = new Color(0, 0, 0);
+    this.color = WHITE;
     this.fixLayout(); // determine my extent
 };
 
