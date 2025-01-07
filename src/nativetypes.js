@@ -21,6 +21,20 @@ SnapFunction.prototype.init = function(context){
                 this.errorFlag = false;
                 this.canBroadcast = false;
             };
+            proc.ThrowError = function(retval){
+                target.Error(retval);
+                this.readyToYield = true;
+                this.readyToTerminate = true;
+                this.errorFlag = false;
+                this.canBroadcast = false;
+            };
+            proc.HandleError = function(retval){
+                target.Error(retval);
+                this.readyToYield = true;
+                this.readyToTerminate = true;
+                this.errorFlag = false;
+                this.canBroadcast = false;
+            };
             stage.threads.processes.push(proc);
             proc.This=thisArg
             proc.runStep();
