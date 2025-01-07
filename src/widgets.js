@@ -2827,22 +2827,12 @@ DialogBoxMorph.prototype.render = function (ctx) {
     // this.alpha = isFlat ? 0.9 : 1;
 
     // title bar
-    ctx.fillStyle = this.titleBarColor.toString();
-    ctx.beginPath();
-    this.outlinePathTitle(
-        ctx,
-        isFlat ? 0 : this.corner
-    );
-    ctx.closePath();
-    ctx.fill();
-
-    // flat shape
-    // body
     ctx.fillStyle = this.color.toString();
     ctx.beginPath();
-    this.outlinePathBody(
+    this.outlinePath(
         ctx,
-        isFlat ? 0 : this.corner
+        this.corner,
+        0
     );
     ctx.closePath();
     ctx.fill();
