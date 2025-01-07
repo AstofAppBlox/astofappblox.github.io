@@ -103,9 +103,11 @@ AsyncSnapFunction.prototype.init = function(context){
             var stage = world.children[0].children[3]
             var proc = new Process()
             proc.receiver = thisArg || stage;
+            var returned = false
             proc.initializeFor(context, new List(args));
             proc.Return = function(retval){
                 resolve(retval)
+                returned = true
                 this.readyToYield = true;
                 this.readyToTerminate = true;
                 this.errorFlag = false;
@@ -113,6 +115,7 @@ AsyncSnapFunction.prototype.init = function(context){
             };
             proc.ThrowError = function(retval){
                 reject(retval)
+                returned = true
                 this.readyToYield = true;
                 this.readyToTerminate = true;
                 this.errorFlag = false;
@@ -120,6 +123,7 @@ AsyncSnapFunction.prototype.init = function(context){
             };
             proc.HandleError = function(retval){
                 reject(retval)
+                returned = true
                 this.readyToYield = true;
                 this.readyToTerminate = true;
                 this.errorFlag = false;
@@ -127,7 +131,7 @@ AsyncSnapFunction.prototype.init = function(context){
             };
             proc.runStep = function(...args){
                 Process.prototype.runStep.call(this,...args);
-                if (this.isRunning()) {return}
+                if (this.isRunning()|| returned) {return}
                 resolve(null)
             }
             stage.threads.processes.push(proc);
