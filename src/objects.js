@@ -2307,6 +2307,12 @@ SpriteMorph.prototype.primitiveBlocks = function () {
             spec: 'function $( %inputParams $){ %c $}',
             code: 'newFunct'
         },
+        AsyncFunction: {
+            type: 'reporter',
+            category: 'operators',
+            spec: 'async function $( %inputParams $){ %c $}',
+            code: 'newAsyncFunct'
+        },
         globalHtmlWorldsParent: {
             type: 'reporter',
             category: 'variables',
@@ -3876,6 +3882,7 @@ SpriteMorph.prototype.blockTemplates = function (
         blocks.push(block('StringInput'))
         blocks.push(block('NumberInput'))
         blocks.push(block('Function'));
+        blocks.push(block('AsyncFunction'));
         blocks.push(block('reifyScript'));
         blocks.push(block('reifyReporter'));
         blocks.push(block('reifyPredicate'));
@@ -11048,6 +11055,7 @@ StageMorph.prototype.blockTemplates = function (
         blocks.push(block('StringInput'))
         blocks.push(block('NumberInput'))
         blocks.push(block('Function'));
+        blocks.push(block('AsyncFunction'));
         blocks.push(block('reifyScript'));
         blocks.push(block('reifyReporter'));
         blocks.push(block('reifyPredicate'));

@@ -1122,7 +1122,8 @@ Process.prototype.isAutoLambda = function (inputSlot) {
         'doFor',
         'doForEach',
         'reportBlocksNative',
-        'Function'
+        'Function',
+        'AsyncFunction'
     ].includes(inputSlot.parent?.selector)) {
         // special cases when overloading those primitives
         // with custom block definitions
@@ -3226,6 +3227,12 @@ Process.prototype.Function = function (inputs,body){
     body = new Context(null,body,this.context)
     body.inputs = inputs.itemsArray()
     return new SnapFunction(body)
+}
+
+Process.prototype.AsyncFunction = function (inputs,body){
+    body = new Context(null,body,this.context)
+    body.inputs = inputs.itemsArray()
+    return new AsyncSnapFunction(body)
 }
 
 Process.prototype.GetThis = function(){
