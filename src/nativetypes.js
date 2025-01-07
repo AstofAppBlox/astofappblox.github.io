@@ -131,7 +131,7 @@ AsyncSnapFunction.prototype.init = function(context){
             };
             proc.runStep = function(...args){
                 Process.prototype.runStep.call(this,...args);
-                if (this.isRunning()|| returned) {return}
+                if ((!this.isDead )|| returned) {return}
                 resolve(null)
             }
             stage.threads.processes.push(proc);
