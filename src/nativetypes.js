@@ -14,7 +14,13 @@ SnapFunction.prototype.init = function(context){
             var proc = new Process()
             proc.receiver = thisArg || stage;
             proc.initializeFor(context, new List(args));
-            proc.context.funct = target;
+            proc.Return = function(retval){
+                target.Return(retval);
+                this.readyToYield = true;
+                this.readyToTerminate = true;
+                this.errorFlag = false;
+                this.canBroadcast = false;
+            };
             stage.threads.processes.push(proc);
             proc.This=thisArg
             proc.runStep();
