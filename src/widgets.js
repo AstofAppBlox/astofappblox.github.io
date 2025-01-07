@@ -2832,7 +2832,9 @@ DialogBoxMorph.prototype.render = function (ctx) {
     this.outlinePathTitle(
         ctx,
         isFlat ? 0 : this.corner
-    );BoxMorph.prototype.outlinePath
+    );
+    ctx.closePath();
+    ctx.fill();
 
     // flat shape
     // body
