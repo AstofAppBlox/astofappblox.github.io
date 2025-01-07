@@ -127,14 +127,8 @@ AsyncSnapFunction.prototype.init = function(context){
             };
             proc.runStep = function(...args){
                 Process.prototype.runStep.call(this,...args);
-                if(proc.isRunning()){return;}
-                if(target.Error){
-                    reject(target.Error)
-                }
-                var retval = target.returnValue
-                target.returnValue = void 0
-                target.Error = void 0
-                resolve(retval)
+                if (this.isRunning()) {return}
+                resolve(null)
             }
             stage.threads.processes.push(proc);
             proc.This=thisArg
