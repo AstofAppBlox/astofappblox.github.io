@@ -133,7 +133,7 @@ AsyncSnapFunction.prototype.init = function(context){
             };
             proc.runStep = function(...args){
                 Process.prototype.runStep.call(this,...args);
-                if ((!((!proc.isRunning() && !proc.errorFlag) || proc.isDead) )|| returned) {return}
+                if ((!((!proc.isRunning() && !proc.errorFlag) || proc.isDead) )) {return}
                 resolve(retuval === void 0? null : retuval)
             }
             stage.threads.processes.push(proc);
