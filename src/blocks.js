@@ -3090,10 +3090,10 @@ BlockMorph.prototype.init = function () {
     var selector = null
     Object.defineProperty(this,'selector',{
         get(){
-            if ((this.select === "doReport") && ((((this.parent || {}).parent || {}).select||"").endsWith("Function"))){
+            if ((this.select === "doReport") && ((((this.parent || {}).parent || {}).selector||"").endsWith("Function"))){
                 return 'Return'
             }
-            if ((this.select === "Return") && (!(((this.parent || {}).parent || {}).select||"").endsWith("Function"))) {
+            if ((this.select === "Return") && (!(((this.parent || {}).parent || {}).selector||"").endsWith("Function"))) {
                 return 'doReport'
             }
             return this.select
