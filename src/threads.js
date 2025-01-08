@@ -499,7 +499,7 @@ ThreadManager.prototype.findProcess = function (block, receiver) {
     );
 };
 
-ThreadManager.allprototype.processesForBlock = function (block, only) {
+ThreadManager.prototype.processesForBlock = function (block, only) {
     var top = only ? block : block.topBlock();
     return this.allprocesses.filter(each =>
         each.topBlock === top &&
