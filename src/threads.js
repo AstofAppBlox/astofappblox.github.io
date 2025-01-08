@@ -3170,7 +3170,7 @@ Process.prototype.getStatInfo = async function (object,info,callback) {
 
 Process.prototype.Await = function (promise){
     if (!this.awaiting){
-        this.awaiting = true
+        this.awaiting = true;
         (new AsyncSnapFunction(promise))().then((promise)=>{
             this.value = void 0
             this.done = false
