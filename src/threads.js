@@ -3196,11 +3196,10 @@ Process.prototype.Await = function (promise){
         }
         this.awaiting = false;
         return this.value;
-    }else{
-        this.pushContext("doYield")
     }
     this.context.inputs = [];
     this.pushContext();
+    this.pushContext("doYield");
 }
 
 
