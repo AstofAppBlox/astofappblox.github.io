@@ -2292,7 +2292,7 @@ SpriteMorph.prototype.primitiveBlocks = function () {
         Await: {
             type: 'reporter',
             category: 'control',
-            spec: 'await %ros',
+            spec: 'await %rosl',
             code: 'await'
         },
         New: {

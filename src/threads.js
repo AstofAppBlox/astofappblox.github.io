@@ -3170,19 +3170,26 @@ Process.prototype.getStatInfo = async function (object,info,callback) {
 
 Process.prototype.Await = function (promise){
     if (!this.awaiting){
-        this.value = void 0
-        this.done = false
-        this.errored = false
-        promise.then((r) => {
-            this.value = r
-            this.done = true
-        }, (e) => {
-            this.value = e
-            this.done = true
-            this.errored = true
+        this.awaiting = true
+        (new AsyncSnapFunction(promise))().then((promise)=>{
+            this.value = void 0
+            this.done = false
+            this.errored = false
+            this.isPaused = true
+            promise.then((r) => {
+                this.value = r
+                this.done = true
+                this.isPaused = false
+                this.runStep()
+            }, (e) => {
+                this.value = e
+                this.done = true
+                this.errored = true
+                this.isPaused = false
+                this.runStep()
+            })
         })
     }
-    this.awaiting = true
     if (this.done) {
         this.popContext();
         this.pushContext('doYield');

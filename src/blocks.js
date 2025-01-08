@@ -339,6 +339,10 @@ SyntaxElementMorph.prototype.labelParts = {
         type: 'input',
         tags: 'read-only',
     },
+    '%rosl':{
+        type: 'input',
+        tags: 'read-only lambda',
+    },
     '%dir': {
         type: 'input',
         tags: 'numeric',
