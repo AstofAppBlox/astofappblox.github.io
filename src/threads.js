@@ -3180,13 +3180,11 @@ Process.prototype.Await = function (promise){
             promise.then((r) => {
                 this.value = r
                 this.done = true
-                this.resume()
                 this.runStep()
             }, (e) => {
                 this.value = e
                 this.done = true
                 this.errored = true
-                this.resume()
                 this.runStep()
             })
         })
@@ -3198,6 +3196,8 @@ Process.prototype.Await = function (promise){
         }
         this.awaiting = false;
         return this.value;
+    }else{
+        this.pushContext("doYield")
     }
     this.context.inputs = [];
     this.pushContext();
