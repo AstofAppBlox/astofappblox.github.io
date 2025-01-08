@@ -3169,22 +3169,26 @@ Process.prototype.getStatInfo = async function (object,info,callback) {
 }
 
 Process.prototype.Await = function (promise){
+    var stage = world.children[0].children[3]
     if (!this.awaiting){
         this.awaiting = true;
         (new AsyncSnapFunction(promise))().then((promise)=>{
             this.value = void 0
             this.done = false
             this.errored = false
-            this.readyToYield = true
-            this.pause()
+            this.readyToYield = true;
+            this.idx = stage.threads.processes.indexOf(this)
+            stage.threads.processes.splice(this.idx,1)
             promise.then((r) => {
                 this.value = r
                 this.done = true
+                stage.threads.processes.splice(this.idx,0,this)
                 this.runStep()
             }, (e) => {
                 this.value = e
                 this.done = true
                 this.errored = true
+                stage.threads.processes.splice(this.idx,0,this)
                 this.runStep()
             })
         })
