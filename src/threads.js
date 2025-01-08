@@ -3176,17 +3176,17 @@ Process.prototype.Await = function (promise){
             this.done = false
             this.errored = false
             this.readyToYield = true
-            this.isPaused = true
+            this.pause()
             promise.then((r) => {
                 this.value = r
                 this.done = true
-                this.isPaused = false
+                this.resume()
                 this.runStep()
             }, (e) => {
                 this.value = e
                 this.done = true
                 this.errored = true
-                this.isPaused = false
+                this.resume()
                 this.runStep()
             })
         })
