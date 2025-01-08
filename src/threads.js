@@ -199,6 +199,7 @@ function invoke(
 
 function ThreadManager() {
     this.processes = [];
+    this.allprocesses = [];
     this.wantsToPause = false; // single stepping support
 }
 
@@ -280,6 +281,7 @@ ThreadManager.prototype.startProcess = function (
     }
 
     this.processes.push(newProc);
+    this.allprocesses.push(newProc);
     if (rightAway) {
         newProc.runStep();
     }
@@ -288,7 +290,7 @@ ThreadManager.prototype.startProcess = function (
 
 ThreadManager.prototype.stopAll = function (excpt) {
     // excpt is optional
-    this.processes.forEach(proc => {
+    this.allprocesses.forEach(proc => {
         if (proc !== excpt) {
             proc.stop();
         }
@@ -297,7 +299,7 @@ ThreadManager.prototype.stopAll = function (excpt) {
 
 ThreadManager.prototype.stopAllForReceiver = function (rcvr, excpt) {
     // excpt is optional
-    this.processes.forEach(proc => {
+    this.allprocesses.forEach(proc => {
         if (proc.homeContext.receiver === rcvr && proc !== excpt) {
             proc.stop();
             if (rcvr.isTemporary) {
@@ -321,7 +323,7 @@ ThreadManager.prototype.stopProcess = function (block, receiver) {
 };
 
 ThreadManager.prototype.pauseAll = function (stage) {
-    this.processes.forEach(proc => proc.pause());
+    this.allprocesses.forEach(proc => proc.pause());
     if (stage) {
         stage.pauseAllActiveSounds();
     }
@@ -329,13 +331,13 @@ ThreadManager.prototype.pauseAll = function (stage) {
 
 ThreadManager.prototype.isPaused = function () {
     return detect(
-        this.processes,
+        this.allprocesses,
         proc => proc.isPaused
     ) !== null;
 };
 
 ThreadManager.prototype.resumeAll = function (stage) {
-    this.processes.forEach(proc => proc.resume());
+    this.allprocesses.forEach(proc => proc.resume());
     if (stage) {
         stage.resumeAllActiveSounds();
     }
@@ -377,6 +379,61 @@ ThreadManager.prototype.removeTerminatedProcesses = function () {
     // and un-highlight their scripts
     var remaining = [],
         count;
+    this.allprocesses.forEach(proc => {
+        var result,
+            glow;
+        if ((!proc.isRunning() && !proc.errorFlag) || proc.isDead) {
+            if (proc.topBlock instanceof BlockMorph) {
+                proc.unflash();
+                // adjust the thread count indicator, if any
+                count = this.processesForBlock(proc.topBlock).length;
+                if (count) {
+                    glow = proc.topBlock.getHighlight() ||
+                        proc.topBlock.addHighlight();
+                    glow.threadCount = count;
+                    glow.updateReadout();
+                } else {
+                    proc.topBlock.removeHighlight();
+                }
+            }
+            if (proc.prompter) {
+                proc.prompter.destroy();
+                if (proc.homeContext.receiver.stopTalking) {
+                    proc.homeContext.receiver.stopTalking();
+                }
+            }
+            if (proc.topBlock instanceof ReporterBlockMorph ||
+                    proc.isShowingResult || proc.exportResult) {
+                result = proc.homeContext.inputs[0];
+                if (proc.onComplete instanceof Function) {
+                    proc.onComplete(result);
+                } else {
+                    if (result instanceof List) {
+                        proc.topBlock.showBubble(
+                            result.isTable() ?
+                                    new TableFrameMorph(
+                                        new TableMorph(result, 10)
+                                    )
+                                    : new ListWatcherMorph(result),
+                            proc.exportResult,
+                            proc.receiver
+                        );
+                    } else {
+                        proc.topBlock.showBubble(
+                            result,
+                            proc.exportResult,
+                            proc.receiver
+                        );
+                    }
+                }
+            } else if (proc.onComplete instanceof Function) {
+                proc.onComplete();
+            }
+        } else {
+            remaining.push(proc);
+        }
+    });
+    this.allprocesses = remaining;
     this.processes.forEach(proc => {
         var result,
             glow;
@@ -437,14 +494,14 @@ ThreadManager.prototype.removeTerminatedProcesses = function () {
 ThreadManager.prototype.findProcess = function (block, receiver) {
     var top = block.topBlock();
     return detect(
-        this.processes,
+        this.allprocesses,
         each => each.topBlock === top && (each.receiver === receiver)
     );
 };
 
-ThreadManager.prototype.processesForBlock = function (block, only) {
+ThreadManager.allprototype.processesForBlock = function (block, only) {
     var top = only ? block : block.topBlock();
-    return this.processes.filter(each =>
+    return this.allprocesses.filter(each =>
         each.topBlock === top &&
             each.isRunning() &&
                 !each.isDead
@@ -505,7 +562,7 @@ ThreadManager.prototype.toggleSingleStepping = function () {
     Process.prototype.enableSingleStepping =
         !Process.prototype.enableSingleStepping;
     if (!Process.prototype.enableSingleStepping) {
-        this.processes.forEach(proc => {
+        this.allprocesses.forEach(proc => {
             if (!proc.isPaused) {
                 proc.unflash();
             }
