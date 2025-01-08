@@ -3209,8 +3209,8 @@ Process.prototype.Await = function (promise){
         return this.value;
     }
     this.context.inputs = [];
-    this.pushContext();
     this.pushContext("doYield");
+    this.pushContext();
 }
 
 
