@@ -3175,6 +3175,7 @@ Process.prototype.Await = function (promise){
             this.value = void 0
             this.done = false
             this.errored = false
+            this.readyToYield = true
             this.isPaused = true
             promise.then((r) => {
                 this.value = r
@@ -3191,8 +3192,6 @@ Process.prototype.Await = function (promise){
         })
     }
     if (this.done) {
-        this.popContext();
-        this.pushContext('doYield');
         if (this.errored) {
             this.awaiting = false;
             throw this.value
@@ -3201,7 +3200,6 @@ Process.prototype.Await = function (promise){
         return this.value;
     }
     this.context.inputs = [];
-    this.pushContext('doYield');
     this.pushContext();
 }
 
