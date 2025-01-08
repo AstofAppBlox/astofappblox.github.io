@@ -104,9 +104,11 @@ AsyncSnapFunction.prototype.init = function(context){
             var proc = new Process()
             proc.receiver = thisArg || stage;
             var returned = false
+            var retuval = void 0
+            var err = void 0
             proc.initializeFor(context, new List(args));
             proc.Return = function(retval){
-                resolve(retval)
+                retuval =  retval
                 returned = true
                 this.readyToYield = true;
                 this.readyToTerminate = true;
@@ -132,7 +134,7 @@ AsyncSnapFunction.prototype.init = function(context){
             proc.runStep = function(...args){
                 Process.prototype.runStep.call(this,...args);
                 if ((!((!proc.isRunning() && !proc.errorFlag) || proc.isDead) )|| returned) {return}
-                resolve(null)
+                resolve(retuval === void 0? null : retuval)
             }
             stage.threads.processes.push(proc);
             proc.This=thisArg
