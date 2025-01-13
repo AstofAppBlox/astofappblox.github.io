@@ -672,7 +672,7 @@ Process.prototype.runStep = function (deadline) {
     // a step is an an uninterruptable 'atom', it can consist
     // of several contexts, even of several blocks
 
-    if (this.isPaused) { // allow pausing in between atomic steps:
+    if (this.awaiting || this.isPaused) { // allow pausing in between atomic steps:
         return this.pauseStep();
     }
     this.readyToYield = false;
