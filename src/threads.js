@@ -658,7 +658,7 @@ function Process(topBlock, receiver, onComplete, yieldFirst) {
 Process.prototype.isRunning = function () {
     return !(this.readyToTerminate && this.done) && (this.context || this.isPaused) ;
 };
-
+3
 // Process entry points
 
 Process.prototype.runStep = function (deadline) {
