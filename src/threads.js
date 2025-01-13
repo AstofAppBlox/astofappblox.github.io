@@ -3211,6 +3211,7 @@ Process.prototype.Await = function (promise){
                 this.handleError(err)
             }else{
                 console.error(err)
+                console.log("stacktrace:"+err.stack)
                 this.handleError(err)
             }
         })
