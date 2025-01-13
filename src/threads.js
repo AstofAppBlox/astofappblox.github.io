@@ -656,7 +656,7 @@ function Process(topBlock, receiver, onComplete, yieldFirst) {
 // Process accessing
 
 Process.prototype.isRunning = function () {
-    return !(this.readyToTerminate) && (this.context || this.isPaused || this.awaiting) ;
+    return !(this.readyToTerminate) && (this.context || this.isPaused) ;
 };
 3
 // Process entry points
