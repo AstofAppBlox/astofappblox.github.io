@@ -3174,8 +3174,6 @@ Process.prototype.Await = function (promise){
     }
     var stage = world.children[0].children[3]
     if (!this.awaiting){
-        this.idx = stage.threads.processes.indexOf(this)
-        stage.threads.processes.splice(this.idx,1)
         this.awaiting = true;
         (new AsyncSnapFunction(new Context(null,promise||SpriteMorph.prototype.blockForSelector("newPromise",true),this.context)))().then((promise)=>{
             this.value = void 0
@@ -3187,14 +3185,12 @@ Process.prototype.Await = function (promise){
                 this.value = r
                 this.done = true
                 this.awaiting = false;
-                stage.threads.processes.splice(this.idx,0,this)
                 this.runStep()
             }, (e) => {
                 this.value = e
                 this.done = true
                 this.errored = true
                 this.awaiting = false;
-                stage.threads.processes.splice(this.idx,0,this)
                 this.runStep()
             })
         })
