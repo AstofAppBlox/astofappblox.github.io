@@ -656,7 +656,7 @@ function Process(topBlock, receiver, onComplete, yieldFirst) {
 // Process accessing
 
 Process.prototype.isRunning = function () {
-    return !this.readyToTerminate && (this.context || this.isPaused);
+    return !(this.readyToTerminate && this.done) && (this.context || this.isPaused) ;
 };
 
 // Process entry points
@@ -673,7 +673,7 @@ Process.prototype.runStep = function (deadline) {
         this.done = false;
         var val = new ArgMorph();
         val.evaluate = ()=>this.value;
-        if (this.isDead()){
+        if (this.isRunning()){
             var block = new ReporterBlockMorph();
             block.selector = "Passthrough"
             block.children[0] = val
