@@ -3180,40 +3180,23 @@ Process.prototype.Await = function (promise){
     }
     var stage = world.children[0].children[3]
     if (!this.awaiting){
-        var p = SpriteMorph.prototype.blockForSelector("doReport",true)
-        p.parent = SpriteMorph.prototype.blockForSelector("Function",true)
-        p.children[1].destroy()
-        p.children[1] = (promise||SpriteMorph.prototype.blockForSelector("newPromise",true))
-        if (p.children[1].parent == null){
-            p.parent = this.receiver.scripts
-        }
-        (new AsyncSnapFunction(new Context(null,p,this.context))).call(this.receiver).then((prm)=>{
-            this.awaiting = true;
-            this.value = void 0
-            this.done = false
-            this.errored = false
-            this.readyToYield = true;
-            this.isInterrupted = true;
-            prm.then((r) => {
-                this.value = r
-                this.done = true
-                this.awaiting = false;
-                this.runStep()
-            }, (e) => {
-                this.value = e
-                this.done = true
-                this.errored = true
-                this.awaiting = false;
-                this.runStep()
-            })
-        }).catch((err)=>{
-            if (this.isCatchingErrors){
-                this.handleError(err)
-            }else{
-                console.error(err)
-                console.log("stacktrace:"+err.stack)
-                this.handleError(err)
-            }
+        this.awaiting = true;
+        this.value = void 0
+        this.done = false
+        this.errored = false
+        this.readyToYield = true;
+        this.isInterrupted = true;
+        promise.then((r) => {
+            this.value = r
+            this.done = true
+            this.awaiting = false;
+            this.runStep()
+        }, (e) => {
+            this.value = e
+            this.done = true
+            this.errored = true
+            this.awaiting = false;
+            this.runStep()
         })
     }
     if (this.done) {
