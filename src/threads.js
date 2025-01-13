@@ -3187,14 +3187,14 @@ Process.prototype.Await = function (promise){
         if (p.children[1].parent == null){
             p.parent = this.receiver.scripts
         }
-        (new AsyncSnapFunction(new Context(null,p,this.context))).call(this.receiver).then((promise)=>{
+        (new AsyncSnapFunction(new Context(null,p,this.context))).call(this.receiver).then((prm)=>{
             this.awaiting = true;
             this.value = void 0
             this.done = false
             this.errored = false
             this.readyToYield = true;
             this.isInterrupted = true;
-            promise.then((r) => {
+            prm.then((r) => {
                 this.value = r
                 this.done = true
                 this.awaiting = false;
