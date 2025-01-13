@@ -3180,7 +3180,6 @@ Process.prototype.Await = function (promise){
     }
     var stage = world.children[0].children[3]
     if (!this.awaiting){
-        this.awaiting = true;
         var p = SpriteMorph.prototype.blockForSelector("doReport",true)
         p.parent = SpriteMorph.prototype.blockForSelector("Function",true)
         p.children[1].destroy()
@@ -3189,6 +3188,7 @@ Process.prototype.Await = function (promise){
             p.parent = this.receiver.scripts
         }
         (new AsyncSnapFunction(new Context(null,p,this.context))).call(this.receiver).then((promise)=>{
+            this.awaiting = true;
             this.value = void 0
             this.done = false
             this.errored = false
@@ -3206,6 +3206,8 @@ Process.prototype.Await = function (promise){
                 this.awaiting = false;
                 this.runStep()
             })
+        }).catch((err)=>{
+            this.handleError(err)
         })
     }
     if (this.done) {
