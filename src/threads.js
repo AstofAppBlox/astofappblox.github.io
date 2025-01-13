@@ -199,7 +199,6 @@ function invoke(
 
 function ThreadManager() {
     this.processes = [];
-    this.allprocesses = [];
     this.wantsToPause = false; // single stepping support
 }
 
@@ -379,7 +378,7 @@ ThreadManager.prototype.removeTerminatedProcesses = function () {
     // and un-highlight their scripts
     var remaining = [],
         count;
-    this.allprocesses.forEach(proc => {
+    this.processes.forEach(proc => {
         var result,
             glow;
         if ((!proc.isRunning() && !proc.errorFlag) || proc.isDead) {
@@ -433,25 +432,20 @@ ThreadManager.prototype.removeTerminatedProcesses = function () {
             remaining.push(proc);
         }
     });
-    this.allprocesses = remaining;
-    this.processes.forEach(proc => {
-        if ((!proc.isRunning() && !proc.errorFlag) || proc.isDead) return;
-        remaining.push(proc);
-    });
     this.processes = remaining;
 };
 
 ThreadManager.prototype.findProcess = function (block, receiver) {
     var top = block.topBlock();
     return detect(
-        this.allprocesses,
+        this.processes,
         each => each.topBlock === top && (each.receiver === receiver)
     );
 };
 
 ThreadManager.prototype.processesForBlock = function (block, only) {
     var top = only ? block : block.topBlock();
-    return this.allprocesses.filter(each =>
+    return this.processes.filter(each =>
         each.topBlock === top &&
             each.isRunning() &&
                 !each.isDead
@@ -3176,6 +3170,9 @@ Process.prototype.getStatInfo = async function (object,info,callback) {
 }
 
 Process.prototype.Await = function (promise){
+    if (this.awaiting){
+        return this.doYield()
+    }
     var stage = world.children[0].children[3]
     if (!this.awaiting){
         this.idx = stage.threads.processes.indexOf(this)

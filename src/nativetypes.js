@@ -60,7 +60,6 @@ SnapFunction.prototype.init = function(context){
                 this.canBroadcast = false;
             };
             stage.threads.processes.push(proc);
-            stage.threads.allprocesses.push(proc);
             proc.This = obj
             proc.runStep();
             if (target.Error) {
@@ -138,7 +137,6 @@ AsyncSnapFunction.prototype.init = function(context){
                 resolve(retuval === void 0? null : retuval)
             }
             stage.threads.processes.push(proc);
-            stage.threads.allprocesses.push(proc);
             proc.This=thisArg
             proc.runStep();
         })
