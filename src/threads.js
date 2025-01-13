@@ -3175,7 +3175,11 @@ Process.prototype.Await = function (promise){
     var stage = world.children[0].children[3]
     if (!this.awaiting){
         this.awaiting = true;
-        (new AsyncSnapFunction(new Context(null,promise||SpriteMorph.prototype.blockForSelector("newPromise",true),this.context)))().then((promise)=>{
+        var p = SpriteMorph.prototype.blockForSelector("Return",true)
+        p.parent = SpriteMorph.prototype.blockForSelector("Function",true)
+        p.children[1].destroy()
+        p.add(promise.fullCopy()||SpriteMorph.prototype.blockForSelector("newPromise",true))
+        (new AsyncSnapFunction(new Context(null,p,this.context))).call(this.receiver).then((promise)=>{
             this.value = void 0
             this.done = false
             this.errored = false
