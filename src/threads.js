@@ -3178,7 +3178,10 @@ Process.prototype.Await = function (promise){
         var p = SpriteMorph.prototype.blockForSelector("doReport",true)
         p.parent = SpriteMorph.prototype.blockForSelector("Function",true)
         p.children[1].destroy()
-        p.children[1] = (promise.fullCopy()||SpriteMorph.prototype.blockForSelector("newPromise",true))
+        p.children[1] = (promise||SpriteMorph.prototype.blockForSelector("newPromise",true))
+        if (p.children[1].parent == null){
+            p.parent = this.receiver.scripts
+        }
         (new AsyncSnapFunction(new Context(null,p,this.context))).call(this.receiver).then((promise)=>{
             this.value = void 0
             this.done = false
