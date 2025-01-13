@@ -3207,7 +3207,12 @@ Process.prototype.Await = function (promise){
                 this.runStep()
             })
         }).catch((err)=>{
-            this.handleError(err)
+            if (this.isCatchingErrors){
+                this.handleError(err)
+            }else{
+                console.error(err)
+                this.handleError(err)
+            }
         })
     }
     if (this.done) {
