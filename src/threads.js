@@ -670,6 +670,12 @@ Process.prototype.runStep = function (deadline) {
     }
     this.readyToYield = false;
     this.isInterrupted = false;
+    if (this.done) {
+        this.done = false;
+        var val = new ArgMorph();
+        val.evaluate = ()=>this.value;
+        this.pushContext(val);
+    }
 
     // repeatedly evaluate the next context (stack frame) until
     // it's time to yield. In case of WARP or infinite recursive
