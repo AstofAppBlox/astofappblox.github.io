@@ -280,7 +280,6 @@ ThreadManager.prototype.startProcess = function (
     }
 
     this.processes.push(newProc);
-    this.allprocesses.push(newProc);
     if (rightAway) {
         newProc.runStep();
     }
@@ -289,7 +288,7 @@ ThreadManager.prototype.startProcess = function (
 
 ThreadManager.prototype.stopAll = function (excpt) {
     // excpt is optional
-    this.allprocesses.forEach(proc => {
+    this.processes.forEach(proc => {
         if (proc !== excpt) {
             proc.stop();
         }
@@ -298,7 +297,7 @@ ThreadManager.prototype.stopAll = function (excpt) {
 
 ThreadManager.prototype.stopAllForReceiver = function (rcvr, excpt) {
     // excpt is optional
-    this.allprocesses.forEach(proc => {
+    this.processes.forEach(proc => {
         if (proc.homeContext.receiver === rcvr && proc !== excpt) {
             proc.stop();
             if (rcvr.isTemporary) {
@@ -322,7 +321,7 @@ ThreadManager.prototype.stopProcess = function (block, receiver) {
 };
 
 ThreadManager.prototype.pauseAll = function (stage) {
-    this.allprocesses.forEach(proc => proc.pause());
+    this.processes.forEach(proc => proc.pause());
     if (stage) {
         stage.pauseAllActiveSounds();
     }
@@ -330,13 +329,13 @@ ThreadManager.prototype.pauseAll = function (stage) {
 
 ThreadManager.prototype.isPaused = function () {
     return detect(
-        this.allprocesses,
+        this.processes,
         proc => proc.isPaused
     ) !== null;
 };
 
 ThreadManager.prototype.resumeAll = function (stage) {
-    this.allprocesses.forEach(proc => proc.resume());
+    this.processes.forEach(proc => proc.resume());
     if (stage) {
         stage.resumeAllActiveSounds();
     }
