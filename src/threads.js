@@ -3186,15 +3186,18 @@ Process.prototype.Await = function (promise){
             this.done = false
             this.errored = false
             this.readyToYield = true;
+            this.isInterrupted = true;
             promise.then((r) => {
                 this.value = r
                 this.done = true
+                this.awaiting = false;
                 stage.threads.processes.splice(this.idx,0,this)
                 this.runStep()
             }, (e) => {
                 this.value = e
                 this.done = true
                 this.errored = true
+                this.awaiting = false;
                 stage.threads.processes.splice(this.idx,0,this)
                 this.runStep()
             })
