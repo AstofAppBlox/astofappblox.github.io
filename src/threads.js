@@ -401,7 +401,7 @@ ThreadManager.prototype.removeTerminatedProcesses = function () {
                 }
             }
             if (proc.topBlock instanceof ReporterBlockMorph ||
-                    proc.isShowingResult || proc.exportResult || proc.isDone) {
+                    proc.isShowingResult || proc.exportResult) {
                 result = proc.homeContext.inputs[0];
                 if (proc.onComplete instanceof Function) {
                     proc.onComplete(result);
@@ -664,7 +664,6 @@ Process.prototype.isRunning = function () {
 Process.prototype.runStep = function (deadline) {
     // a step is an an uninterruptable 'atom', it can consist
     // of several contexts, even of several blocks
-
     if (this.awaiting || this.isPaused) { // allow pausing in between atomic steps:
         return this.pauseStep();
     }
@@ -674,8 +673,16 @@ Process.prototype.runStep = function (deadline) {
         this.done = false;
         var val = new ArgMorph();
         val.evaluate = ()=>this.value;
+        if (this.isDead()){
+            var block = new ReporterBlockMorph();
+            block.selector = "Passthrough"
+            block.children[0] = val
+            this.pushContext(block)
+            return
+        }
         this.pushContext(val);
     }
+    if (this.isDead()) return;
 
     // repeatedly evaluate the next context (stack frame) until
     // it's time to yield. In case of WARP or infinite recursive
@@ -3172,6 +3179,10 @@ Process.prototype.getStatInfo = async function (object,info,callback) {
         return (await api.IDToObject(object))[info]
     }
     return (await api.getStat(object)[info])
+}
+
+Process.prototype.Passthrough = function(v){
+    return v;
 }
 
 Process.prototype.Await = function (promise){
