@@ -673,14 +673,10 @@ Process.prototype.runStep = function (deadline) {
         this.done = false;
         var val = new ArgMorph();
         val.evaluate = ()=>this.value;
-        if (this.isRunning()){
-            var block = new ReporterBlockMorph();
-            block.selector = "Passthrough"
-            block.children[0] = val
-            this.pushContext(block)
-            return
-        }
-        this.pushContext(val);
+        var block = new ReporterBlockMorph();
+        block.selector = "Passthrough"
+        block.children[0] = val
+        this.pushContext(block)
     }
     if (this.isDead()) return;
 
