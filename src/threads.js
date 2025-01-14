@@ -678,7 +678,7 @@ Process.prototype.runStep = function (deadline) {
         block.children[0] = val
         this.pushContext(block)
     }
-    if (this.isDead()) return;
+    if (!this.isRunning()) return;
 
     // repeatedly evaluate the next context (stack frame) until
     // it's time to yield. In case of WARP or infinite recursive
