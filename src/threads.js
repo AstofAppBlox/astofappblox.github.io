@@ -380,7 +380,7 @@ ThreadManager.prototype.removeTerminatedProcesses = function () {
     this.processes.forEach(proc => {
         var result,
             glow;
-        if ((!proc.isRunning() && !proc.errorFlag) || proc.isDead) {
+        if (!(proc.isRunning() || proc.errorFlag || proc.awaiting) || proc.isDead) {
             if (proc.topBlock instanceof BlockMorph) {
                 proc.unflash();
                 // adjust the thread count indicator, if any
