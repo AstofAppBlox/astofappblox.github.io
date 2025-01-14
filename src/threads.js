@@ -400,7 +400,7 @@ ThreadManager.prototype.removeTerminatedProcesses = function () {
                     proc.homeContext.receiver.stopTalking();
                 }
             }
-            if (proc.topBlock instanceof ReporterBlockMorph ||
+            if (proc.topBlock instanceof ArgMorph || proc.topBlock instanceof ReporterBlockMorph ||
                     proc.isShowingResult || proc.exportResult) {
                 result = proc.homeContext.inputs[0];
                 if (proc.onComplete instanceof Function) {
@@ -605,7 +605,7 @@ Process.prototype.isCaseInsensitive = true; // text comparison
 Process.prototype.enableHyperOps = true;
 Process.prototype.enableLiveCoding = false; // experimental
 Process.prototype.enableSingleStepping = false;
-Process.prototype.enableCompiling = false; // experimental
+Process.prototype.enableCompiling = false; // experimentalhttps://devforum.roblox.com/t/how-do-i-remove-the-topbar/3380134/
 Process.prototype.flashTime = 0;
 Process.prototype.enableJS = true;
 
@@ -626,9 +626,7 @@ function Process(topBlock, receiver, onComplete, yieldFirst) {
     this.isAtomic = false;
     this.prompter = null;
     this.httpRequest = null;
-    this.isPaused = false;
-    this.pauseOffset = null;
-    this.currentTime = Date.now(); // keeping track of time between yields
+    this.isPaused = false;https://devforum.roblox.com/t/how-do-i-remove-the-topbar/3380134/elds
     this.frameCount = 0; // only used for profiling and debugging
     this.stepFrameCount = 0; // keeping track of when to keep time
     this.yieldCount = 0; // only used for profiling and debugging
@@ -637,7 +635,7 @@ function Process(topBlock, receiver, onComplete, yieldFirst) {
     this.procedureCount = 0;
     this.flashingContext = null; // for single-stepping
     this.isInterrupted = false; // for single-stepping
-    this.canBroadcast = true; // used to control "when I am stopped"
+    this.canBroadcast = true; // used to control "whhttps://devforum.roblox.com/t/how-do-i-remove-the-topbar/3380134/en I am stopped"
 
     if (topBlock) {
         this.homeContext.variables.parentFrame =
