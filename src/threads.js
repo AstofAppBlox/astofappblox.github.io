@@ -701,6 +701,7 @@ Process.prototype.runStep = function (deadline) {
             }
             return;
         }
+        this.reportNotFinished=false
         this.evaluateContext();
     }
 
@@ -1281,6 +1282,7 @@ Process.prototype.doYield = function () {
     this.popContext();
     if (!this.isAtomic) {
         this.readyToYield = true;
+        this.reportNotFinished = true;
     }
 };
 
@@ -4577,6 +4579,7 @@ Process.prototype.reportURL = function (url) {
     }
     this.pushContext('doYield');
     this.pushContext();
+    this.reportNotFinished = true
 };
 
 Process.prototype.checkURLAllowed = function (url) {
@@ -7905,7 +7908,7 @@ Process.prototype.popContext = function () {
 
 Process.prototype.returnValueToParentContext = function (value) {
     // if no parent context exists treat value as result
-    if (value !== undefined) {
+    if (this.reportNotFinished) {
         var target = this.context ? // in case of tail call elimination
                 this.context.parentContext || this.homeContext
             : this.homeContext;
@@ -7994,6 +7997,7 @@ Process.prototype.doInterrupt = function () {
     this.popContext();
     if (!this.isAtomic) {
         this.isInterrupted = true;
+        this.reportNotFinished = true;
     }
 };
 
